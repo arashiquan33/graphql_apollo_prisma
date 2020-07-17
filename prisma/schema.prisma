@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model family_member {
+  age         Int?
+  birth       DateTime? @default(dbgenerated())
+  member_id   Int       @id
+  member_name String?
+}
+
+model post {
+  authorId  Int
+  content   String?
+  createdAt DateTime @default(now())
+  id        Int      @default(autoincrement()) @id
+  published Boolean  @default(false)
+  title     String
+  user      user     @relation(fields: [authorId], references: [id])
+
+  @@index([authorId], name: "authorId")
+}
+
+model profile {
+  bio    String?
+  id     Int     @default(autoincrement()) @id
+  userId Int?
+  user   user?   @relation(fields: [userId], references: [id])
+
+  @@index([userId], name: "userId")
+}
+
+model students {
+  birth      DateTime?
+  name       String?
+  sex        String?
+  student_id Int       @id
+}
+
+model user {
+  age             Int?      @default(10)
+  birth           DateTime
+  description     String    @default("this man is lazy")
+  email           String    @default("304033826@qq.com")
+  first_work_year Int?
+  id              Int       @default(autoincrement()) @id
+  name            String?
+  salary          Int       @default(5000)
+  sex             user_sex  @default(man)
+  post            post[]
+  profile         profile[]
+}
+
+enum user_sex {
+  man
+  woman
+}
