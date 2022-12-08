@@ -11,7 +11,7 @@
     "@prisma/client": "^2.0.0",
     "apollo-datasource-rest": "^0.9.0",
     "apollo-server": "^2.13.1",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "express-graphql": "^0.9.0",
     "graphql": "^15.0.0",
     "nodemon": "^2.0.4"
